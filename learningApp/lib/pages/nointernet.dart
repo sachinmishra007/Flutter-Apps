@@ -14,7 +14,7 @@ class _NoInternetConnectionState extends State<NoInternetConnection> {
   @override
   Widget build(BuildContext context) {
     var connectionStatus = Provider.of<ConnectivityStatus>(context);
-
+    // Tween<double> _scaleTween = Tween<double>( begin: 0.0,end: );
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     double imagehw = 300;
@@ -45,15 +45,18 @@ class _NoInternetConnectionState extends State<NoInternetConnection> {
                 Padding(
                   padding: EdgeInsets.only(top: 50),
                   child: Center(
-                    child: new Container(
-                      height: imagehw,
-                      width: imagehw,
-                      decoration: new BoxDecoration(
-                        image: new DecorationImage(
-                          image: new AssetImage(
-                            "assets/images/newimage.png",
+                    child: Opacity(
+                      opacity:1,
+                      child: new Container(
+                        height: imagehw,
+                        width: imagehw,
+                        decoration: new BoxDecoration(
+                          image: new DecorationImage(
+                            image: new AssetImage(
+                              "assets/images/newimage.png",
+                            ),
+                            fit: BoxFit.cover,
                           ),
-                          fit: BoxFit.cover,
                         ),
                       ),
                     ),

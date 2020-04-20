@@ -29,6 +29,28 @@ class _CardMainContentState extends State<CardMainContent> {
     return _listOfCardItem;
   }
 
+  List<Widget> _getLoadingIndicator(widget) {
+    List<Widget> _list = [];
+    for (int i = 0; i < 5; i++) {
+      _list.add(
+        Container(
+          height: 20,
+          decoration: new BoxDecoration(
+            color: new Color(0xFFffb6b6),
+            borderRadius: new BorderRadius.circular(5),
+          ),          
+        ),
+      );
+      _list.add(
+        SizedBox(
+          height: 10,
+        ),
+      );
+    }
+
+    return _list;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -88,6 +110,23 @@ class _CardMainContentState extends State<CardMainContent> {
                   width: widget.cardMainContentModel.imageDetails.width != null
                       ? widget.cardMainContentModel.imageDetails.width
                       : widget.cardMainContentModel.parentWidth,
+                  loadingBuilder: (BuildContext context, Widget child,
+                      ImageChunkEvent loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return new Container(
+                      height: widget.cardMainContentModel.imageDetails.height !=
+                              null
+                          ? widget.cardMainContentModel.imageDetails.height
+                          : 150,
+                      width:
+                          widget.cardMainContentModel.imageDetails.width != null
+                              ? widget.cardMainContentModel.imageDetails.width
+                              : widget.cardMainContentModel.parentWidth,
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: _getLoadingIndicator(widget)),
+                    );
+                  },
                 ),
               ),
             ),

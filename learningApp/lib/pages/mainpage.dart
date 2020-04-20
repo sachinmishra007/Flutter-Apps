@@ -11,6 +11,7 @@ import 'package:learningApp/model/imageModel.dart';
 import 'package:http/http.dart' as http;
 import 'package:learningApp/pages/nointernet.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MainPageList extends StatefulWidget {
   @override
@@ -19,6 +20,7 @@ class MainPageList extends StatefulWidget {
 
 class _MainPageListState extends State<MainPageList> {
   Future<List<PageListingModel>> _techStackList;
+  String username = "";
   void getClickIndex(context, int index) {
     Navigator.push(
       context,
@@ -52,8 +54,18 @@ class _MainPageListState extends State<MainPageList> {
   }
 
   void initState() {
-    super.initState();
+    getUserInfo();
     _techStackList = getTechnologyStack();
+    super.initState();
+  }
+
+  void getUserInfo() async {
+    final userPreference = await SharedPreferences.getInstance();
+    final String userName = userPreference.getString("username");
+    setState(() {
+      username = userName;
+    });
+    print(username);
   }
 
   Future<List<PageListingModel>> getTechnologyStack() async {
@@ -105,7 +117,7 @@ class _MainPageListState extends State<MainPageList> {
                             top: 80,
                           ),
                           child: new Text(
-                            'Hi, Sachin',
+                            'Hi, ' + username.toString(),
                             style: GoogleFonts.ubuntu(
                               color: fontColor,
                               fontSize: 25,

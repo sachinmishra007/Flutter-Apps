@@ -1,13 +1,15 @@
 import 'dart:convert';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:learningApp/constants/constant.dart';
 import 'package:learningApp/customWidget/mainCardContent.dart';
 import 'package:learningApp/pages/mainpage.dart';
 import 'package:learningApp/pages/nointernet.dart';
+import 'package:learningApp/pages/onboarding.dart';
+import 'package:learningApp/pages/userInput.dart';
 import 'package:learningApp/services/ConnectivityService.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'enums/ConnectivityStatus.dart';
 import 'model/imageModel.dart';
@@ -21,20 +23,23 @@ void main() {
 
 // MainPageList()
 class MyApp extends StatelessWidget {
+   
   @override
   Widget build(BuildContext context) {
     return StreamProvider<ConnectivityStatus>(
       builder: (context) => ConnectivityService().connectionStatusController,
       child: MaterialApp(
-          locale: DevicePreview.of(context).locale, // <--- Add the locale
-          builder: DevicePreview.appBuilder,
-          title: 'Learning Cheatsheet',
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
-            visualDensity: VisualDensity.adaptivePlatformDensity,
-          ),
-          home: MainPageList()),
+        locale: DevicePreview.of(context).locale, // <--- Add the locale
+        builder: DevicePreview.appBuilder,
+        title: 'Learning Cheatsheet',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        home: OnBoardingWidget() //sOnBoardingWidget() //MainPageList()
+        ,
+      ),
     );
   }
 }
